@@ -4326,7 +4326,7 @@ input[type="button"].btn-block {
 }
 
 .card {
-  position: relative;
+  /* position: relative; */
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
