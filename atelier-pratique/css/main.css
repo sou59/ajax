@@ -4,14 +4,16 @@
    Author's custom styles
    ========================================================================== */
 @font-face {
+    font-family: 'Titillium Web', sans-serif;
     font-family: "gilroy-extrabold-webfont";
+    font-family: "glyphicons-halflings-regular";
     src: url(../fonts/gilroy-extrabold-webfont.ttf) format("truetype");
+    
 }
 
 body {
 	font-family: "gilroy-extrabold-webfont", Helvetica, Arial, sans-serif;
 }
-
 
 .thumbnail {
     border: 0;
@@ -25,40 +27,66 @@ body {
     padding: 9px 15px;
 }
 
+.mynav {
+    display: none;
+}
+/* .mynav {
+    display: inline;
+
+} */
+
+
 .navbar {
-    /* background-color: #282828; */
     background: rgba(40,40,40,0.5);
     color: white;
 }
 
 .navbar-brand {
     margin-top: 0;
-    /* font-weight: bold; */
     color: white;
     font-size: 26px;
+    margin-left: 100px;
 }
+
+#navbarNav {
+    margin-right: 40px;
+    display: inline;
+}
+
 .navbar-nav>li>a {
     transition: all 0.4s;
     color: white;
     font-weight: bold;
     line-height: 2.5;
+    text-transform: uppercase;
+    font-family: "Titillium Web";
 }
 
 .navbar-nav .active>.nav-link, .navbar-nav .nav-link.active, .navbar-nav .nav-link.show,  .navbar-nav .show>.nav-link, .navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
-    background:#3e2c0a;
+    /* background:#3e2c0a; */
     color:white;
     text-shadow:none;
 }
 
 .card-title {
     font-size: 20px;
-    
+}
 
+.mycard {
+    background-color: red;
+    color: white;
+    width: 100%;
+}
+
+hr {
+    width: 90%;
+    background-color: white;
+    align-self: center;
 }
 
 .vidContain {
-    width: 100%; 
-    height: 600px;
+    min-width: 100%; 
+    height: 100vh;
     position: relative;
     display: inline-block;
     /* margin:10px; */
@@ -80,6 +108,13 @@ div.boissons {
     width: 100%;
     padding-top: 40px;
     
+}
+
+.btn.selection {
+    border-radius: 30%;
+    width: 150px;
+    text-transform: uppercase;
+    border: 0;
 }
 
 div#choix {
@@ -119,12 +154,20 @@ footer {
     text-transform:uppercase;
 }
 
-.subtitle h4 {
+.titre {
+    font-size:50px;
+    color:white;
     display:inline-block;
-    background:white;
-    color:#3e2c0a;
-    font-size:38px;
+    padding:0px 18px;
+}
+
+
+.subtitle h2 {
+    display:inline-block;
+    color:white;
+    font-size:100px;
     padding:0px 15px;
+    font-family: 'Titillium Web', sans-serif;
 }
 .bottom {
     text-align:center;

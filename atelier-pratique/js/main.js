@@ -17,5 +17,45 @@ $(function() {
         
 
         });
+
+        $(window).scroll(function() {
+            var $height = $(window).scrollTop();
+            if($height > 50) {
+                $("nav").removeClass("mynav");
+                $(".titre").hide();
+            } else {
+                $("nav").removeClass("mynav");
+                $(".titre").show();
+            }
+        });  
+
+
+        // fleche en bas de la vidéo
+        var $scrollDownArrow = $('#scrollDownArrow');
+        var animateScrollDownArrow = function() {
+            $scrollDownArrow.animate( {
+                top: 5,
+            }
+            , 400, "linear", function() {
+                $scrollDownArrow.animate( {
+                    top: -5,
+                }
+                , 400, "linear", function() {
+                    animateScrollDownArrow();
+                }
+                );
+            });
+        }
+        animateScrollDownArrow();
+
+        // Bouton plus d'info 
+        $(".infos").on("click", function() {
+            alert("Non disponible");
+
+        });
+          
+        // click sur bouton Energisante  si dispo = 0 affiche texte "non disponible"
+        // d-none à supprimer si dispo = 0
+        
         
 });
