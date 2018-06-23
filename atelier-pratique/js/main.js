@@ -1,61 +1,69 @@
 $(function() {
     /* Go DOM is loaded !
     Writes some lines of jQuery, I know it's more than a passion for you :) */
-    
-
 
         // Requête AJAX Appeller  une page php qui genère à la volée un JSON
-           
         $.getJSON("ajax/boissons.php", function(data) {
 
-            // selectuer : là ou afficher le html
+            // sélection : là ou afficher le html
             // load : 1er argument : le template 
-            // load : 2e argument : tableau associatif avec une clé, les éléments àç rtraiter et les éléments data (ce qu'on récupère via le premier appel ajax quand on appel le script au-dessus)
-            $("#boissons").load("tpl/boissons.php", { items: data });
+            // load : 2e argument : tableau associatif avec une clé, les éléments à traiter et les éléments data (ce qu'on récupère via le premier appel ajax quand on appel le script au-dessus)
+            $("#list-recipes .container").load( "tpl/boissons.php", { "items": data }, function() {
+                $("#list-recipes .container").slideDown("slow");
+            });
 
             console.log(data);
         
-
         });
 
-        $(window).scroll(function() {
-            var $height = $(window).scrollTop();
-            if($height > 50) {
-                $("nav").removeClass("mynav");
-                $(".titre").hide();
-            } else {
-                $("nav").removeClass("mynav");
-                $(".titre").show();
-            }
-        });  
+        // Affichage de la navbar complète dès que l'on dépasse 100px au scroll
+        $(document).scroll(function() {
+            $('.navbar').toggleClass('fixed-top fixed', $(document).scrollTop() >= 100);
+        });
 
-
-        // fleche en bas de la vidéo
-        var $scrollDownArrow = $('#scrollDownArrow');
-        var animateScrollDownArrow = function() {
-            $scrollDownArrow.animate( {
-                top: 5,
+        // Evénément click sur les boutons de sélection d'une boisson
+        $(document).on("click", ".btn-selection", function() {
+            // Si le bouton est actif
+            if(!$(this).hasClass("disabled")) {
+                // Je récupère le nom de la boisson dans la balise h3
+                var recipeName = $(this).parents(".caption").children("h3").text();
+                // Et l'ajoute à l'endroit désiré dans l'encart your-choice
+                $("#your-choice dd").text(recipeName);   
             }
-            , 400, "linear", function() {
-                $scrollDownArrow.animate( {
-                    top: -5,
-                }
-                , 400, "linear", function() {
-                    animateScrollDownArrow();
-                }
-                );
+        });
+
+        // Evénément click sur les boutons de filtrage des recettes
+        $(".btn-packaging").on("click", function() {
+            
+            // Remise à zéro des recettes non disponible
+            var elements = $('.not-available .caption');
+            $('.description', elements).each(function() {
+                $(this).html($(this).data("description"));
             });
-        }
-        animateScrollDownArrow();
-
-        // Bouton plus d'info 
-        $(".infos").on("click", function() {
-            alert("Non disponible");
-
+            $('.btn-selection', elements).each(function() {
+                $(this).removeClass("disabled");
+            });
+            $(".not-available").removeClass("not-available");
+            
+            // Ajout du texte non disponible sur les recettes concernées plus "désactivation" du bouton de sélection
+            elements = $(".thumbnail[data-"+$(this).attr("id")+"='0']");
+            console.log(elements);
+            elements.addClass("not-available");
+            $('.caption .description', elements).each(function() {
+                $(this).html("Non disponible. Modifiez votre sélection pour sélectionner cette recette.");
+            });
+            $('.caption .btn-selection', elements).each(function() {
+                $(this).addClass("disabled");
+            });
         });
-          
-        // click sur bouton Energisante  si dispo = 0 affiche texte "non disponible"
-        // d-none à supprimer si dispo = 0
         
+        // Chargement et lecture de la vidéo
+        $("video source").each(function() {
+            var sourceFile = $(this).attr("data-src");
+            $(this).attr("src", sourceFile)
+            var video = this.parentElement;
+            video.load();
+            video.play();   
+        });
         
 });

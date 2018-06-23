@@ -1,49 +1,40 @@
 <?php
-/*
-2/ En utilisant un « template » PHP, utiliser la réponse JSON de l’appel AJAX pour afficher la liste des films à l’aide d’une boucle (Utilisation de Bootstrap et du composant Thumbnail)
-*/
-// faire des tests à chaque étape et continuer quand il n'y a plus d'erreur
-    $items = $_POST["items"];
 
-    //var_dump($items);
+$i=1;
 
-    // utilisation du Custom content thumbnails de bootstrap 3 sans le bouton et l'image
-        foreach($items as $item) {
-            ?>
+$items = $_POST["items"];
 
-
-            <div class="col-md-4">
-                <div class="mycard card mb-4 box-shadow">
-                    <div class="row wd-100">
-                        <div class="col-6">
-                            <h5 class="card-title pt-2 pl-2"><?= $item["title"] ?></h5>
-                        </div>
-                        <div class="col-6 text-right pt-2">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="card-body">
-                        <p class="card-text"><?= $item["description"] ?></p>
-                        <p class="d-none">Non disponible. Modifier votre sélection pour sélectionner cette recette.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm  btn-success infos">Plus d'infos</button>
-                            </div>
-                            <div class="btn-group">    
-                                <button type="button" class="btn btn-sm  btn-success infos">Sélectionner</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+foreach($items as $item) {
+    if($i == 1) echo "<div class=\"row\">";
+    ?>
+    <div class="col-md-4">
+        <div class="thumbnail" data-energizing="<?php if ($item["energizing"]) { echo "1"; } else { echo "0"; } ?>" data-cooling="<?php if ($item["cooling"]) { echo "1"; } else { echo "0"; } ?>">
+            <div class="caption <?=$item["name"]?>">
+                <h3><?=$item["display-name"]?></h3>
+                <?php
+                if ($item["energizing"]) {
+                ?>
+                    <img class="energizing" src="img/energizing.svg"/>
+                <?php
+                }
+                if ($item["cooling"]) {
+                ?>
+                    <img class="cooling" src="img/cooling.svg"/>
+                <?php
+                }
+                ?>
+                <p class="description" data-description="<?=$item["description"]?>"><?=$item["description"]?></p>
+                <p>
+                    <button type="button" class="btn btn-primary" role="button" data-recipe="<?=$item["name"]?>" data-toggle="modal" data-target="#originalModal">Plus d'infos</button>
+                    <button class="btn btn-default btn-selection pull-right" role="button">Sélectionner</button>
+                </p>
             </div>
-            
-        <?php
-        } 
-        ?>
-            
         </div>
-
     </div>
-            
-
+    <?php
+    if($i == 3) {
+        echo "</div>";
+        $i = 0;
+    }
+    $i++;
+}

@@ -9,7 +9,7 @@ $sql = "SELECT * FROM boissons";
 
 $query = $db->query($sql);
 
-$boissons = $query->fetchAll();
+$boissons = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
 //var_dump($boissons); // ne pas laisser afficher sinon cela ne fonctionne pas, cette page ne doit afficher que le JSON
